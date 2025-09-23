@@ -1,0 +1,46 @@
+{
+	"name" : "EtfTransactions",
+	"display_name" : "ETF Transactions",
+	"description" : "<p>ETF Transactions</p>",
+	"module_type" : "packages",
+	"app_type" : "fintech",
+	"category" : "etf",
+	"version" : "0.0.0",
+	"repo" : "https://github.com/sp-fintech-auetfs/fintech-packages-etf-etftransactions",
+	"class" : "Apps\\Fintech\\Packages\\Etf\\Transactions\\EtfTransactions",
+	"dependencies" : 
+	{
+		"core" : 
+		{
+			"name" : "Core",
+			"version" : "0.0.0-rc.9",
+			"repo" : "https://github.com/sp-framework/core"
+		},
+		"apptype" : 
+		{
+			"name" : "Fintech",
+			"version" : "0.3.0",
+			"repo" : "https://github.com/sp-fintech/fintech"
+		},
+		"middlewares" : [],
+		"externals" : 
+		{
+			"composer" : 
+			{
+				"require" : 
+				{
+					"phpoffice/phpspreadsheet" : "^4.1"
+				}
+			},
+			"config" : 
+			{
+				"allow-plugins" : []
+			},
+			"extra" : 
+			{
+				"patches" : []
+			}
+		}
+	},
+	"settings" : []
+}
