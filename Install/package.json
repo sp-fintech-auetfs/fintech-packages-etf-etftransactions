@@ -5,7 +5,7 @@
 	"module_type" : "packages",
 	"app_type" : "fintech",
 	"category" : "etf",
-	"version" : "0.0.0",
+	"version" : "0.1.0",
 	"repo" : "https://github.com/sp-fintech-auetfs/fintech-packages-etf-etftransactions",
 	"class" : "Apps\\Fintech\\Packages\\Etf\\Transactions\\EtfTransactions",
 	"dependencies" : 
