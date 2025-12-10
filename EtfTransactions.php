@@ -128,7 +128,7 @@ class EtfTransactions extends BasePackage
                     }
 
                     $canSellTransactions[$transaction['scheme_id']]['available_units'] =
-                        numberFormatPrecision($canSellTransactions[$transaction['scheme_id']]['available_units'], 2);
+                        numberFormatPrecision($canSellTransactions[$transaction['scheme_id']]['available_units'], 4);
 
                     $canSellTransactions[$transaction['scheme_id']]['returns'] = $this->calculateTransactionReturns($transaction, false, null, $data);
 
@@ -154,7 +154,7 @@ class EtfTransactions extends BasePackage
                             $data['amount'] = $canSellTransactions[$this->scheme['id']]['available_amount'];
                         } else {
                             //Convert from $data['amount'] to $data['units']
-                            $data['units'] = numberFormatPrecision($data['amount'] / $this->scheme['navs']['navs'][$data['date']]['nav'], 3);
+                            $data['units'] = numberFormatPrecision($data['amount'] / $this->scheme['navs']['navs'][$data['date']]['nav'], 4);
                         }
                     } else if (isset($data['units'])) {
                         if ((float) $data['units'] > $canSellTransactions[$this->scheme['id']]['available_units']) {
@@ -219,13 +219,13 @@ class EtfTransactions extends BasePackage
                                     if (isset($data['sell_all']) && $data['sell_all'] == 'true') {
                                         $buyTransactions[$transaction['id']]['id'] = $transaction['id'];
                                         $buyTransactions[$transaction['id']]['date'] = $transaction['date'];
-                                        $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($availableUnits, 3);
+                                        $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($availableUnits, 4);
                                         $buyTransactions[$transaction['id']]['amount'] = numberFormatPrecision($availableUnits * $transaction['returns'][$data['date']]['nav'], 2);
                                         $buyTransactions[$transaction['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
 
                                         $sellTransactions[$data['id']]['id'] = $data['id'];
                                         $sellTransactions[$data['id']]['date'] = $data['date'];
-                                        $sellTransactions[$data['id']]['units'] = numberFormatPrecision($availableUnits, 3);
+                                        $sellTransactions[$data['id']]['units'] = numberFormatPrecision($availableUnits, 4);
                                         $sellTransactions[$data['id']]['amount'] = numberFormatPrecision($availableUnits * $transaction['returns'][$data['date']]['nav'], 2);
                                         $sellTransactions[$data['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
 
@@ -240,30 +240,30 @@ class EtfTransactions extends BasePackage
 
                                             $buyTransactions[$transaction['id']]['id'] = $transaction['id'];
                                             $buyTransactions[$transaction['id']]['date'] = $transaction['date'];
-                                            $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($availableUnits, 3);
+                                            $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($availableUnits, 4);
                                             $buyTransactions[$transaction['id']]['amount'] = numberFormatPrecision($availableUnits * $transaction['returns'][$data['date']]['nav'], 2);
                                             $buyTransactions[$transaction['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
 
                                             $sellTransactions[$data['id']]['id'] = $data['id'];
                                             $sellTransactions[$data['id']]['date'] = $data['date'];
-                                            $sellTransactions[$data['id']]['units'] = numberFormatPrecision($availableUnits, 3);
+                                            $sellTransactions[$data['id']]['units'] = numberFormatPrecision($availableUnits, 4);
                                             $sellTransactions[$data['id']]['amount'] = numberFormatPrecision($availableUnits * $transaction['returns'][$data['date']]['nav'], 2);
                                             $sellTransactions[$data['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
 
                                             $transaction['status'] = 'close';
                                             $transaction['date_closed'] = $data['date'];
                                         } else if ($availableUnits > $unitsToProcess) {
-                                            $transaction['units_sold'] = $transaction['units_sold'] + numberFormatPrecision($unitsToProcess, 3);
+                                            $transaction['units_sold'] = $transaction['units_sold'] + numberFormatPrecision($unitsToProcess, 4);
 
                                             $buyTransactions[$transaction['id']]['id'] = $transaction['id'];
                                             $buyTransactions[$transaction['id']]['date'] = $transaction['date'];
-                                            $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($unitsToProcess, 3);
+                                            $buyTransactions[$transaction['id']]['units'] = numberFormatPrecision($unitsToProcess, 4);
                                             $buyTransactions[$transaction['id']]['amount'] = numberFormatPrecision($unitsToProcess * $transaction['returns'][$data['date']]['nav'], 2);
                                             $buyTransactions[$transaction['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
 
                                             $sellTransactions[$data['id']]['id'] = $data['id'];
                                             $sellTransactions[$data['id']]['date'] = $data['date'];
-                                            $sellTransactions[$data['id']]['units'] = numberFormatPrecision($unitsToProcess, 3);
+                                            $sellTransactions[$data['id']]['units'] = numberFormatPrecision($unitsToProcess, 4);
                                             $sellTransactions[$data['id']]['amount'] = numberFormatPrecision($unitsToProcess * $transaction['returns'][$data['date']]['nav'], 2);
                                             $sellTransactions[$data['id']]['returns'] = $canSellTransactions[$transaction['scheme_id']]['returns'][$data['date']];
                                         }
@@ -456,7 +456,7 @@ class EtfTransactions extends BasePackage
                                     $correspondingTransaction['status'] = 'open';
                                     $correspondingTransaction['date_closed'] = null;
 
-                                    $correspondingTransaction['units_sold'] = numberFormatPrecision($correspondingTransaction['units_sold'] - $correspondingTransactionArr['units'], 3);
+                                    $correspondingTransaction['units_sold'] = numberFormatPrecision($correspondingTransaction['units_sold'] - $correspondingTransactionArr['units'], 4);
 
                                     unset($correspondingTransaction['transactions'][$etfTransaction['id']]);
                                 }
@@ -522,7 +522,7 @@ class EtfTransactions extends BasePackage
                 $units = (float) $transaction['amount'] / $transaction['nav'];
 
                 if ($transaction['type'] === 'buy') {
-                    $transaction['units_bought'] = numberFormatPrecision($units, 3);
+                    $transaction['units_bought'] = numberFormatPrecision($units, 4);
                 }
 
                 if (!isset($transaction['units_sold'])) {
@@ -584,9 +584,9 @@ class EtfTransactions extends BasePackage
                     }
                 }
 
-                $units = numberFormatPrecision($transaction['units_bought'] - $units, 3);
+                $units = numberFormatPrecision($transaction['units_bought'] - $units, 4);
             } else {
-                $units = numberFormatPrecision($transaction['units_bought'] - $transaction['units_sold'], 3);
+                $units = numberFormatPrecision($transaction['units_bought'] - $transaction['units_sold'], 4);
             }
         } else {
             $units = $transaction['units_sold'];
